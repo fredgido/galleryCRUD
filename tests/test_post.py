@@ -1,7 +1,4 @@
-import os
-import tempfile
 import pytest
-import hashlib
 import requests
 #from ..run import *
 
@@ -10,8 +7,6 @@ def pytest_report_header(config):
     #if config.option.verbose > 0:
     return ["running instance online test", "doing..."]
 
-
-#@pytest.fixture
 
 def test_online():
     assert requests.get("http://127.0.0.1:5000/").status_code == 200
@@ -24,33 +19,29 @@ def test_should_pass():
 #    raise Exception("errir")
 
 
-global post_id
-post_id = 0
-global text
-text = "testtext"
-img = 'https://danbooru.donmai.us/data/sample/' \
-       'sample-74c3adb4c381551e88e882d263b79a6b.jpg'
-global filename
+img = "https://flask.palletsprojects.com/en/1.1.x/_images/flask-logo.png"
+text = "texet"
 
+
+@pytest.fixture
 def test_create_post():
     link = 'http://127.0.0.1:5000/api/post?text={}&file={}'.format(text,img)
     response = requests.post(link)
-    global post_id
-    post_id = response.json()["id"]
-    print(response.text)
+    return response.json()
 
 
-def test_read_post():
+@pytest.fixture
+def test_read_post(test_create_post):
+    post_id = test_create_post["id"]
     print(post_id)
     link = 'http://127.0.0.1:5000/api/post?id={}'.format(post_id)
     response = requests.get(link)
     assert text == response.json()["text"]
-    print(response.json())
-    global filename
-    filename = response.json()["file"]
+    return dict(response.json())
 
-def test_read_image():
-    print(post_id)
+
+def test_read_image(test_read_post):
+    filename = test_read_post["file"]
     link = 'http://127.0.0.1:5000//static/orig/{}'.format(filename)
     response_server = requests.get(link)
     response_original = requests.get(img)
