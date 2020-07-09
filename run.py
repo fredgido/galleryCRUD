@@ -130,7 +130,6 @@ def importposts():
             return
         with open(os.path.join("static", folder, name), 'wb') as f:
             f.write(getreply.content)
-        print("done image " + name + " " + folder)
 
     s = requests.Session()
     with ThreadPoolExecutor(max_workers=6) as executor:
@@ -181,7 +180,6 @@ def new_post():
     if posted_json is None:
         posted_json = {'text': request.args.get("text"), 'file': request.args.get("file")}
         if posted_json['file'] is None or posted_json['text'] is None:
-            print(posted_json)
             abort(400)
 
     text = "" if posted_json["text"] is None else posted_json["text"]
@@ -190,7 +188,6 @@ def new_post():
     post_id = 0 if post_id is None else post_id + 1
 
     if not validators.url(posted_json.get("file")):
-        print(posted_json.get("file"))
         return "no file url sent"
 
     url = posted_json.get("file")
@@ -220,7 +217,6 @@ def patch_post():
                        'text': request.args.get("text"),
                        'file': request.args.get("file")}
         if posted_json['id'] is None:
-            print(posted_json)
             abort(400)
 
     post = db.session.query(Post).get(posted_json['id'])
@@ -245,13 +241,10 @@ def patch_post():
 
 @app.route("/api/post", methods=['DELETE'])
 def delete_post():
-    print(request.args)
     posted_json = request.json
     if posted_json is None:
         posted_json = {'id': request.args.get("id")}
         if posted_json['id'] is None:
-            print(posted_json)
-
             abort(400)
 
     post = db.session.query(Post).get(posted_json['id'])
