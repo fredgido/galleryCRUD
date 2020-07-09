@@ -1,6 +1,6 @@
 # galleryCRUD
 Webpage to upload and list images
-![Test Image 2](“example.png”)
+![Test Image 2](example.png)
 
 
 ## Installation
