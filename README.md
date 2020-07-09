@@ -25,6 +25,17 @@ Use the package manager [pip](https://pip.pypa.io/en/stable/) to install depende
 pip install requirements.txt
 ```
 
+Currently there are a couple enviroment variables read, like ``DATABASE_URI``,  ``POSTS_PER_PAGE``, ``PORT`` or ``THUMB_SIZE``
+be sure to use put your postgres URI like so:
+```bash
+export DATABASE_URI="postgresql://postgres:postgres@localhost/postgres"
+```
+or you can run in sqlite by doing
+```bash
+export DATABASE_URI="sqlite:///db.db"
+```
+If you run docker the docker compose will spin up a docker with postgress and setup the URI how its needed.
+
 ## Usage
 
 Run :
