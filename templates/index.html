@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block head %}
+{{ super() }}
+{% endblock  %}
+{% block title %}index{% endblock %}
+{% block content %}
+<!-- <button type="button" onclick=" document.location.href = '/create' ">New</button> -->
+
+{% if size is defined  %}
+<div class="pages">
+    Page:
+    {% for n in range((((size-1)/posts_per_page)|int)+1) %}
+    <a href="/?page={{ n+1 }}">{{ n+1 }} </a>
+    {% endfor %}
+</div>
+{% endif %}
+
+<br>
+<div class="thumblisting container-fluid">
+    {% for post in posts %}
+    <div class="thumbencap" id="{{(post.id|string)}}"> <!-- col-md-2 col-xs-12-->
+
+        <div class="thumbcontainer" > <a href="{{'./post?id='+(post.id|string)}}" ><img class="thumb" src="{{'../static/thumb/'+(post.id|string)+'.jpg'}}"></a></div>
+
+        <span class="thumbtext" style="">{{ post.text }}<br></span>
+        <button type="button" onclick="document.location.href = '/post?id={{(post.id|string)}}'">Details</button>
+        <button type="button" onclick="fetch('../api/post?id={{(post.id|string)}}',{method: 'DELETE'});
+            document.getElementById('{{(post.id|string)}}').style.visibility='hidden' ">Delete
+        </button>
+
+    </div>
+
+    {% endfor %}
+</div>
+{% endblock %}

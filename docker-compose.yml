@@ -1,0 +1,22 @@
+  version: '3'
+    
+  services:
+    db:
+      image: postgres
+      environment:
+        - POSTGRES_DB=postgres
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=postgres
+    web:
+      build: .
+      volumes:
+        - .:/code
+      environment:
+        - DATABASE_URI=postgresql://postgres:postgres@db:5432/postgres
+      expose:
+        - "5432"
+      command: ./wait-for-it.sh db:5432 -t 60 -- python ./run.py
+      ports:
+        - "5000:5000"
+      depends_on:
+        - db

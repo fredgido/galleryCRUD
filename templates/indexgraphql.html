@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block head %}
+{{ super() }}
+{% endblock  %}
+{% block title %}index{% endblock %}
+{% block content %}
+
+<!-- <div class="pages">
+    Page:
+
+</div>-->
+
+
+<br>
+<div class="thumblisting container-fluid">
+
+</div>
+<script>
+let response;
+
+function myFunction(responseJson) {
+    console.log(responseJson)
+    response = responseJson;
+    responseJson.data.allPosts.edges.forEach(keys => {
+        let id = keys.node.file.split('.')[0];
+        document.getElementsByClassName("thumblisting")[0].innerHTML += "<div class='thumbencap' ><a href='./post?id=" + id + "'><img class='thumb' src='../static/thumb/" + id + ".jpg'></a></div>"
+    })
+}
+
+fetch('/graphql', {
+    method: 'POST',
+    headers: {
+        'content-type': 'application/json',
+        'Content-Type': 'application/json; charset=UTF-8'
+    },
+    body: JSON.stringify({
+        "query": "{\n  allPosts {\n    edges {\n      node {\n        id\n        file\n        text\n      }\n    }\n  }\n}"
+    })
+}).then((response) => response.json()).then((responseJson) => {
+    this.myFunction(responseJson);
+});
+
+</script>
+
+{% endblock %}

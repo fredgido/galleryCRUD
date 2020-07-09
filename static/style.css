@@ -1,0 +1,76 @@
+
+
+nav > a{
+    font-size: 40px;
+    margin: 15px;
+    text-decoration: none;
+    color: #00522e !important;
+}
+
+div.pages > a{
+    font-size: 20px;
+    margin: 5px;
+    text-decoration: none;
+}
+
+div.pages{
+    font-size: 20px;
+    margin: 5px;
+}
+
+.thumb{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.thumbtext{
+    overflow: hidden;
+    height: 1.2em;
+    display: block;
+    width: 150px;
+    text-overflow: ellipsis;
+}
+
+.thumbencap{
+    display: inline-block;
+    height:195px;
+    width:150px;
+    margin: 5px 5px;
+    vertical-align:top;
+}
+.thumbcontainer{
+    height:150px; width:150px;
+}
+
+@font-face{
+    font-family: trial;
+    src: url('https://fonts.googleapis.com/css?family=Ubuntu');
+    font-weight: bold;
+}
+html {
+  font-family: 'Ubuntu', sans-serif;
+  color:green;
+}
+/*
+body {
+    font-family: Ubuntu; color:green
+}
+/*
+h1 {
+    font-family:trial;
+    color: pink
+}
+*/
+
+#file{
+    margin: 5px 0px;
+}
+
+a:visited , a:active,a:link, a:hover{
+  color: inherit;
+}
+
+.footer{
+    text-decoration: none;
+    color: inherit;
+}

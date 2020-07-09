@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block head %}
+    {{ super() }}
+{% endblock  %}
+{% block title %}post{% endblock %}
+{% block content %}
+
+<div style=" max-height: 70vh;" > <img style=" max-height: 70vh;" src="../{{'../static/orig/'+file}}"> </div>
+<pre>{{postdump}}</pre>
+
+<form action="/post" method="POST">
+  <label for="text">Modify ext:</label><br>
+  <input type="text" id="text" name="text" value="{{post.text}}"><br>
+  <input type="hidden" id="id" name="id" value="{{post.id}}">
+  <!--<input type="submit" value="Submit">-->
+</form>
+<button type="button" onclick="
+            const id = document.getElementById('id').value;
+            const text = document.getElementById('text').value;
+            fetch('../api/post?id='+id+'&text='+text,{method: 'PATCH'});
+            location.reload();">Submit</button>
+
+{% endblock %}

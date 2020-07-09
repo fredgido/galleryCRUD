@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block head %}
+    {{ super() }}
+{% endblock  %}
+{% block title %}create{% endblock %}
+{% block content %}
+<form action="/post" method="POST" enctype = "multipart/form-data">
+    <input type="file" id="file" name="file"><br>
+    <label for="text">Text:</label><br>
+    <input type="text" id="text" name="text" value="text"><br>
+    <input type="submit" value="Submit" >
+</form>
+{% endblock %}

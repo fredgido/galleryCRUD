@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block head %}
+    {{ super() }}
+{% endblock  %}
+{% block title %}populate{% endblock %}
+{% block content %}
+<button type="button" onclick=" document.location.href = '/import?do=true' ">IMPORT</button>
+{% endblock %}
