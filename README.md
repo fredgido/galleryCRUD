@@ -10,7 +10,7 @@ Clone the repository locally.
 You can build and run with docker:
 
 ```bash
-docker build -t galleryCRUD:latest .
+docker-compose up --build --force-recreate
 ```
 note: docker needs wait-for-it.sh from https://github.com/vishnubob/wait-for-it included on this repo, to wait for posgres to boot.
 The application will be accessible at http://127.0.0.1:5000 or find the ip address of the virtua machine using `docker-machine ls` and the use the ip `http://<host_ip>:5000`
