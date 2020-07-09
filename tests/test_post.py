@@ -19,11 +19,17 @@ def test_should_pass():
 #    raise Exception("errir")
 
 
-img = "https://flask.palletsprojects.com/en/1.1.x/_images/flask-logo.png"
-text = "texet"
+@pytest.fixture
+def img():
+    return "https://flask.palletsprojects.com/en/1.1.x/_images/flask-logo.png"
 
 
-def test_create_post():
+@pytest.fixture
+def text():
+    return "texet"
+
+
+def test_create_post(text, img):
     link = 'http://127.0.0.1:5000/api/post?text={}&file={}'.format(text, img)
     response = requests.post(link)
     post_id = dict(response.json())["id"]
@@ -38,8 +44,8 @@ def post():
     return post
 
 
-def test_read_post(test_getpost):
-    post_id = test_getpost["id"]
+def test_read_post(post, text, img):
+    post_id = post["id"]
     print(post_id)
     link = 'http://127.0.0.1:5000/api/post?id={}'.format(post_id)
     response = requests.get(link)
@@ -47,8 +53,8 @@ def test_read_post(test_getpost):
     return dict(response.json())
 
 
-def test_read_image(test_getpost):
-    filename = test_getpost["file"]
+def test_read_image(post, text, img):
+    filename = post["file"]
     link = 'http://127.0.0.1:5000/static/orig/{}'.format(filename)
     response_server = requests.get(link)
     response_original = requests.get(img)
