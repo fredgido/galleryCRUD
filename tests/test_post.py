@@ -23,16 +23,23 @@ img = "https://flask.palletsprojects.com/en/1.1.x/_images/flask-logo.png"
 text = "texet"
 
 
-@pytest.fixture
 def test_create_post():
-    link = 'http://127.0.0.1:5000/api/post?text={}&file={}'.format(text,img)
+    link = 'http://127.0.0.1:5000/api/post?text={}&file={}'.format(text, img)
     response = requests.post(link)
-    return response.json()
+    post_id = dict(response.json())["id"]
+    assert isinstance(post_id, int) and post_id >= 0
 
 
 @pytest.fixture
-def test_read_post(test_create_post):
-    post_id = test_create_post["id"]
+def test_getpost():
+    link = 'http://127.0.0.1:5000/api/post'
+    response = requests.get(link)
+    post = dict(response.json())["posts"][0]
+    return post
+
+
+def test_read_post(test_getpost):
+    post_id = test_getpost["id"]
     print(post_id)
     link = 'http://127.0.0.1:5000/api/post?id={}'.format(post_id)
     response = requests.get(link)
@@ -40,8 +47,8 @@ def test_read_post(test_create_post):
     return dict(response.json())
 
 
-def test_read_image(test_read_post):
-    filename = test_read_post["file"]
+def test_read_image(test_getpost):
+    filename = test_getpost["file"]
     link = 'http://127.0.0.1:5000/static/orig/{}'.format(filename)
     response_server = requests.get(link)
     response_original = requests.get(img)
