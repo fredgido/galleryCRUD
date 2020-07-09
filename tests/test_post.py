@@ -42,7 +42,7 @@ def test_read_post(test_create_post):
 
 def test_read_image(test_read_post):
     filename = test_read_post["file"]
-    link = 'http://127.0.0.1:5000//static/orig/{}'.format(filename)
+    link = 'http://127.0.0.1:5000/static/orig/{}'.format(filename)
     response_server = requests.get(link)
     response_original = requests.get(img)
     assert response_server.content == response_original.content
