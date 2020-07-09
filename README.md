@@ -71,3 +71,22 @@ curl --request POST \
   --header 'content-type: application/json' \
   --data '{"query":"{\n  allPosts {\n    edges {\n      node {\n        id\n        file\n        text\n      }\n    }\n  }\n}"}'
 ```
+
+
+## Tests
+
+There is one test written in pytest on folder tests, it can be run as:
+
+```bash
+py.test
+```
+or
+```bash
+pytest -q tests/test_post.py
+```
+or
+```bash
+python -m pytest tests/
+```
+Before running the tests boot an instance locally on port 5000.
+This test checks if a instance is online, creastes a post, compares if text of post created is expected and downloads image to compare to submited. Using the /api/post with query parameters. All five tests should be collected and pass.
