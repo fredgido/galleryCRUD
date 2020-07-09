@@ -31,7 +31,7 @@ def test_create_post():
 
 
 @pytest.fixture
-def test_getpost():
+def post():
     link = 'http://127.0.0.1:5000/api/post'
     response = requests.get(link)
     post = dict(response.json())["posts"][0]
